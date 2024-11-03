@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:/gbdk/include/**",
+                "${workspaceFolder}/include/**",
+                "${workspaceFolder}/headers/**",
+                "${workspaceFolder}/gen/**"
+            ],
+            "defines": [
+                "__PORT_sm83",
+                "__TARGET_gb"
+            ]
+        }
+    ],
+    "version": 4
+}

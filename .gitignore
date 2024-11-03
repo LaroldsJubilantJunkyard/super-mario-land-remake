@@ -1,0 +1,9 @@
+/dist
+/gen
+/obj
+/gen
+
+*.o
+*.ihx
+*.lst
+*.sym
