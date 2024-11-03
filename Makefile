@@ -46,6 +46,7 @@ png2asset-backgrounds:
 	$(PNG2ASSET) $(RESDIR)/backgrounds/World1Area1.png -c $(GENDIR)/World1Area1.c -b 255 -source_tileset $(RESDIR)/backgrounds/World1Tileset.png  -map -keep_palette_order -noflip
 
 png2asset-sprites:
+	$(PNG2ASSET) $(RESDIR)/sprites/MarioSprites.png -c $(GENDIR)/MarioSprites.c -b 255 -spr8x16 -keep_palette_order -noflip -sw 16 -sh 32
 
 compile.bat: Makefile
 	@echo "REM Automatically generated from Makefile" > compile.bat
@@ -53,7 +54,7 @@ compile.bat: Makefile
 
 
 # Link the compiled object files into a .gb ROM file
-$(BINS):	$(OBJS)
+$(BINS):	$(CSOURCES)
 	$(LCC) $(LCCFLAGS) -Wm-yt3 -Wm-yoA -Wm-ya1 -o $(BINS) $(CSOURCES) 
 
 prepare:

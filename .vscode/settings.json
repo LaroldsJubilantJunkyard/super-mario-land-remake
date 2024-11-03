@@ -61,6 +61,9 @@
         "handbook.h": "c",
         "world1area1.h": "c",
         "levels.h": "c",
-        "hugedriver.h": "c"
+        "hugedriver.h": "c",
+        "objects.h": "c",
+        "world1tileset.h": "c",
+        "mariosprites.h": "c"
     }
 }
