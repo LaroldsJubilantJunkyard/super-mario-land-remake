@@ -17,7 +17,7 @@ BANKREF_EXTERN(World1Tileset)
 uint8_t currentLevelIndex=0;
 
 const World worlds[2]={
-    {.enemyCount=3,.tilesetBank=BANK(World1Tileset),.tilesetData=World1Tileset_tiles,.tilesetTileCount=World1Tileset_TILE_COUNT,.objectTypes={&objectTypes[0],&objectTypes[0],&objectTypes[0],&objectTypes[0]}},
+    {.enemyCount=3,.tilesetBank=BANK(World1Tileset),.tilesetData=World1Tileset_tiles,.tilesetTileCount=World1Tileset_TILE_COUNT,.objectTypes={&objectTypes[0],&objectTypes[1],&objectTypes[0],&objectTypes[0]}},
     {.enemyCount=3}
 };
 
@@ -63,11 +63,14 @@ void PopulateVRAMForWorldObjects(World* world)NONBANKED{
 
 void InitializeLevel(uint8_t index)NONBANKED{
 
+    camera_min_x=0;
+
     uint8_t previous_bank = CURRENT_BANK;
 
     Level* currentLevel = &levels[currentLevelIndex=index];
 
     InitializeObjects();
+
     PopulateVRAMForWorldObjects(currentLevel->world);
 
     SWITCH_ROM(currentLevel->world->tilesetBank);
@@ -83,10 +86,13 @@ void UpdateAllObjects(World* world)NONBANKED{
 
     uint8_t previous_bank = CURRENT_BANK;
 
+    Level* currentLevel = &levels[currentLevelIndex];
+
     for(uint8_t i=0;i<MAX_OBJECTS;i++){
     
         Object* obj = &objects[i];
 
+        // Make sure the object is 
         if(!obj->active)continue;
 
         uint8_t index = obj->objectTypeIndex;
@@ -97,9 +103,18 @@ void UpdateAllObjects(World* world)NONBANKED{
 
         objectType->updateFunction(obj);
 
+        // Make sure we are still active
+        if(!obj->active)continue;
+
         uint8_t base_tile = metaspriteTileOffsets[obj->objectTypeIndex];
-        
-        move_metasprite_banked(objectType->metasprites,obj->frame,base_tile,8+(obj->scaledX>>4),16+(obj->scaledY>>4),objectType->metaspriteBank);
+
+        SWITCH_ROM(objectType->metaspriteBank);
+
+        uint8_t x = 8+(obj->scaledX>>4)-camera_x;
+        uint8_t y = 16+(obj->scaledY>>4);
+
+        if(obj->direction==Direction_Right)metaspriteCount+= move_metasprite_ex(objectType->metasprites[obj->frame],base_tile,0,metaspriteCount,x,y);
+        else metaspriteCount+= move_metasprite_flipx(objectType->metasprites[obj->frame],base_tile,0,metaspriteCount,x,y);
     }
 
     SWITCH_ROM(previous_bank);

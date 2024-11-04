@@ -7,6 +7,8 @@
 
 
 extern uint8_t metaspriteCount;
+extern uint8_t joypadCurrent;
+extern uint8_t joypadPrevious;
 
 uint8_t move_metasprite_banked(const metasprite_t **metasprites, uint8_t index, uint8_t base_tile,uint8_t x, uint8_t y, uint8_t bank) NONBANKED;
 

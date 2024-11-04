@@ -8,13 +8,13 @@
 #define MAX_OBJECT_TYPES 10
 
 
-
+typedef enum DirectionEnum{Direction_Right,Direction_Left}Direction;
 
 typedef struct ObjectStruct {
 
     int16_t scaledX, scaledY;
     int16_t velocityX, velocityY;
-    uint8_t direction;
+    Direction direction;
     uint8_t active;
     uint8_t frame;
     uint8_t objectTypeIndex;
@@ -40,5 +40,9 @@ extern const ObjectType objectTypes[MAX_OBJECT_TYPES];
 
 void SpawnObject(uint8_t type, uint8_t column, uint8_t row) BANKED;
 void InitializeObjects(void)BANKED;
+
+
+void UpdatePlayer(Object* player)BANKED;
+void UpdateEnemy1(Object* enemy1) BANKED;
 
 #endif

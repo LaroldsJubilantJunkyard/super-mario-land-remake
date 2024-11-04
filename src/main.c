@@ -3,6 +3,7 @@
 #include "camera.h"
 #include "levels.h"
 #include "objects.h"
+#include "player.h"
 #include "common.h"
 
 
@@ -12,7 +13,6 @@ void main(void)
     SHOW_BKG;
     SHOW_SPRITES;
     SPRITES_8x16;
-
     
     InitializeLevel(0);
 
@@ -21,7 +21,11 @@ void main(void)
 
         metaspriteCount=0;
 
-        const World* world = levels[currentLevelIndex].world;
+        joypadPrevious=joypadCurrent;
+        joypadCurrent = joypad();
+
+        Level* currentLevel = &levels[currentLevelIndex];
+        const World* world = currentLevel->world;
 
 		// Game main loop processing goes here
         UpdateAllObjects(world);
