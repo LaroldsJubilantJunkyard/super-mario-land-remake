@@ -1,20 +1,22 @@
 #include <gb/gb.h>
+#include <gbdk/far_ptr.h>
 #include <stdint.h>
 #include "camera.h"
 #include "levels.h"
 #include "objects.h"
 #include "player.h"
 #include "common.h"
+#include "GameStateManager.h"
 
 
 void main(void)
 {
+    InitializeGameStateManager();
+
 	// Turn the background map on to make it visible
     SHOW_BKG;
     SHOW_SPRITES;
     SPRITES_8x16;
-    
-    InitializeLevel(0);
 
     // Loop forever
     while(1) {
@@ -24,11 +26,7 @@ void main(void)
         joypadPrevious=joypadCurrent;
         joypadCurrent = joypad();
 
-        Level* currentLevel = &levels[currentLevelIndex];
-        const World* world = currentLevel->world;
-
-		// Game main loop processing goes here
-        UpdateAllObjects(world);
+        UpdateGameStateManager();
 
         hide_sprites_range(metaspriteCount,40);
 

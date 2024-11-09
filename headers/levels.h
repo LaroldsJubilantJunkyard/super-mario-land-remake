@@ -2,19 +2,8 @@
 #define LEVELS_HEADER size_t
 
 #include "hUGEDriver.h"
-#include "objects.h"
-
-typedef struct WorldStruct{
-    uint8_t* tilesetData;
-    uint8_t tilesetTileCount;
-    uint8_t tilesetBank;
-    hUGESong_t music;
-    uint8_t musicBank;
-    uint8_t enemyCount;
-    ObjectType* objectTypes[MAX_OBJECT_TYPES];
-
-} World;
-
+#include "object-types.h"
+#include "world.h"
 
 typedef struct LevelStruct{
 
@@ -27,11 +16,9 @@ typedef struct LevelStruct{
 
 extern uint8_t currentLevelIndex;
 
-extern const Level levels[4];
-extern const World worlds[2];
+extern Level levels[4];
+extern Level* currentLevel;
 
-
-void InitializeLevel(uint8_t index)NONBANKED;
-void UpdateAllObjects(World* world)NONBANKED;
+void InitializeLevel(uint8_t index)BANKED;
 
 #endif

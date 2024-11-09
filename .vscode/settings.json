@@ -64,6 +64,9 @@
         "hugedriver.h": "c",
         "objects.h": "c",
         "world1tileset.h": "c",
-        "mariosprites.h": "c"
+        "mariosprites.h": "c",
+        "world.h": "c",
+        "object-types.h": "c",
+        "startscreenbackground.h": "c"
     }
 }

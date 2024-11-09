@@ -34,7 +34,7 @@ BINS	    = $(OBJDIR)/$(PROJECTNAME).gb
 # How to recursively find all files that match a pattern
 CSOURCES := $(call rwildcard,$(SRCDIR)/,*.c)   $(call rwildcard,$(GENDIR)/,*.c) 
 
-LCCFLAGS += -Iinclude -Iheaders -Igen -autobank
+LCCFLAGS += -Iinclude -Iheaders -Igen -autobank -debug
 
 all:	prepare png2asset $(BINS)
 
@@ -42,6 +42,8 @@ png2asset: png2asset-backgrounds png2asset-sprites
 
 
 png2asset-backgrounds:
+	$(PNG2ASSET) $(RESDIR)/backgrounds/Font.png -c $(GENDIR)/Font.c -b 255 -map -keep_palette_order -noflip
+	$(PNG2ASSET) $(RESDIR)/backgrounds/StartScreenBackground.png -c $(GENDIR)/StartScreenBackground.c -b 255 -map -keep_palette_order -noflip
 	$(PNG2ASSET) $(RESDIR)/backgrounds/World1Tileset.png -c $(GENDIR)/World1Tileset.c -b 255 -map -keep_palette_order -noflip
 	$(PNG2ASSET) $(RESDIR)/backgrounds/World1Area1.png -c $(GENDIR)/World1Area1.c -b 255 -source_tileset $(RESDIR)/backgrounds/World1Tileset.png  -map -keep_palette_order -noflip
 

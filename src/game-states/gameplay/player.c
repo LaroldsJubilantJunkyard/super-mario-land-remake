@@ -5,6 +5,8 @@
 #include <gb/metasprites.h>
 #include "common.h"
 #include "objects.h"
+#include "object-types.h"
+#include "camera.h"
 #include "camera.h"
 #include "levels.h"
 #include "MarioSprites.h"
@@ -16,7 +18,7 @@ BANKREF_EXTERN(MarioSprites)
 
 Object* player;
 
-void UpdatePlayer(Object* player)BANKED{
+void UpdatePlayer(Object* player, struct ObjectType* Type)BANKED{
 
     if(joypadCurrent & J_RIGHT){
         player->velocityX=10;
@@ -36,6 +38,5 @@ void UpdatePlayer(Object* player)BANKED{
 
     player->scaledX+=player->velocityX;
 
-
-    UpdateCamera(player->scaledX>>4,player->scaledY>>4);
+    UpdateCamera(player->scaledX>>4);
 }   
